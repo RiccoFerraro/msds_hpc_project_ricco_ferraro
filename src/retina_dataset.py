@@ -1,11 +1,21 @@
-class retinaDataset(Dataset):
-    def __init__(self, imagepath="../input/diabetic-retinopathy-resized/resized_train_cropped/resized_train_cropped", total=None,transform=my_transform):
-        self.df = pd.read_csv("../input/diabetic-retinopathy-resized/trainLabels_cropped.csv")
+from torch.utils.data import Dataset
+import torch
+from PIL import Image
+import torchvision.transforms as transforms
+import pandas as pd
+import os
+
+class RetinaDataset(Dataset):
+    def __init__(self, imagepath="data/archive/resized_train_cropped/resized_train_cropped/", total=None):
+        transform = transforms.Compose([transforms.Resize((299,299)),transforms.ToTensor()])
+        print(os.getcwd())
+        self.df = pd.read_csv("data/trainLabels_cropped.csv")
         
         if (total is not None):
             self.df = self.df[:total]
         
         self.transform = transform
+        
         self.imagepath = imagepath
         
     def __len__(self):
@@ -19,3 +29,4 @@ class retinaDataset(Dataset):
             img = self.transform(img)
         
         return img, torch.tensor(self.df.iloc[index].level)
+
