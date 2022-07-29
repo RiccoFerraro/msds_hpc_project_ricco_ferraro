@@ -18,7 +18,7 @@ class InceptionV3LightningModel(pl.LightningModule):
         aux_logits = False,
     ):
         super().__init__()
-        print(f'torch.cuda.is_available(): {torch.cuda.is_available()s}')
+        print(f'torch.cuda.is_available(): {torch.cuda.is_available()}')
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = inception_v3(pretrained=True).to(device=self.device)
         for param in self.model.parameters():
