@@ -2,7 +2,7 @@
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
-#SBATCH -p htc
+#SBATCH -p gpgpu-1
 #SBATCH --nodes=2
 #SBATCH --gres=gpu:1
 #SBATCH --array=1-2
