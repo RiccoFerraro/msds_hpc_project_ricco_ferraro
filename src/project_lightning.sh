@@ -5,7 +5,7 @@
 #SBATCH --nodes=4
 #SBATCH --gres=gpu:4
 #SBATCH --ntasks-per-node=8
-#SBATCH --mem=0
+#SBATCH --mem=12G
 #SBATCH --time=0-02:00:00
 
 # activate venv
