@@ -2,11 +2,15 @@
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
+#SBATCH -p htc
 #SBATCH --nodes=2
 #SBATCH --gres=gpu:1
+#SBATCH --array=1-2
 #SBATCH --ntasks-per-node=8
-#SBATCH --mem=12G
+#SBATCH --mem=6G
 #SBATCH --time=0-02:00:00
+
+
 
 # activate venv
 source project_venv/bin/activate
