@@ -31,7 +31,7 @@ def main(args):
         trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
     else: 
         print('using plain ole cpu and 1 node!')
-        trainer = Trainer(devices=num_devices, num_nodes=1, strategy="ddp")
+        trainer = Trainer(num_nodes=1, strategy="ddp")
     trainer.fit(model, train_loader, val_loader)
 
 
