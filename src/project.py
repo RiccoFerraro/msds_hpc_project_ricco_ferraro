@@ -15,14 +15,14 @@ def get_cropped_data(relative_path = "../input/diabetic-retinopathy-resized/trai
     return pd.read_csv(relative_path)[:count]
 
 
-def train_model(train_dataloader, train_dataset, batch_size):
+def train_model(train_dataloader):
     learning_rate = 1e-4
     num_epochs = 1
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = inception_v3(pretrained=True)
 
     for param in model.parameters():
-        param.requires_grad = False
+        param.requires_grad = False   
         
     model.fc = torch.nn.Linear(in_features=2048, out_features=5, bias=True)
     model.aux_logits = False
@@ -30,7 +30,6 @@ def train_model(train_dataloader, train_dataset, batch_size):
 
     optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
     loss_criterion = torch.nn.CrossEntropyLoss()
-    train_dataloader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
 
     for epoch in range(num_epochs):
         for data, target in tqdm(train_dataloader):
@@ -72,5 +71,5 @@ def check_accuracy(model, loader):
 batch_size = 32
 train_dataset = RetinaDataset(total=5000)
 train_dataloader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
-model = train_model(train_dataloader, train_dataset, batch_size)
+model = train_model(train_dataloader)
 check_accuracy(model, train_dataloader)
