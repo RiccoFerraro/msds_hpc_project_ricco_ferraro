@@ -19,40 +19,43 @@ class InceptionV3LightningModel(pl.LightningModule):
     ):
         super().__init__()
         print(f'is cuda available: {torch.cuda.is_available()}')
-        self.model = inception_v3(pretrained=True)
-        for param in self.model.parameters():
+        self._model = inception_v3(pretrained=True)
+        for param in self._model.parameters():
             param.requires_grad = False 
-
-        self.model.fc = torch.nn.Linear(in_features=in_features, out_features=out_features, bias=bias)
-        self.learning_rate = learning_rate
-        self.num_epochs = num_epochs
-        self.in_features = in_features
-        self.out_features = out_features
-        self.bias = bias
-        self.aux_logits = aux_logits
-        self.loss_criterion = torch.nn.CrossEntropyLoss()
+        # Be careful not to overwrite `pl.LightningModule` attributes such as `self.model`.
+        self._model.fc = torch.nn.Linear(in_features=in_features, out_features=out_features, bias=bias)
+        self._learning_rate = learning_rate
+        self._num_epochs = num_epochs
+        self._in_features = in_features
+        self._out_features = out_features
+        self._bias = bias
+        self._aux_logits = aux_logits
+        self._loss_criterion = torch.nn.CrossEntropyLoss()
 
     def backward(self, trainer, loss, optimizer, optimizer_idx):
         loss.backward()
 
     def forward(self, x):
-        return self.model.forward(x)
+        return self._model(x)
+    
+    def get(self, item):
+        return self.__dict__[item]
 
     def training_step(self, train_batch, batch_idx):
         X, y = train_batch
-        y_hat = self.model(X)
-        loss = self.loss_criterion(y_hat, y)
+        y_hat = self._model(X)
+        loss = self._loss_criterion(y_hat, y)
         self.log('train_loss', loss)
         return loss
 
     def validation_step(self, batch, batch_idx):
         X, y = batch
-        y_hat = self.model(X)
-        loss = self.loss_criterion(y_hat, y)
+        y_hat = self._model(X)
+        loss = self._loss_criterion(y_hat, y)
         self.log("valid_loss", loss, prog_bar=True)
         self.log("val_acc", self.accuracy(y_hat, y), prog_bar=True)
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.model.parameters(), lr = self.learning_rate)
+        return torch.optim.Adam(self._model.parameters(), lr = self._learning_rate)
 
     
