@@ -18,9 +18,8 @@ class InceptionV3LightningModel(pl.LightningModule):
         aux_logits = False,
     ):
         super().__init__()
-        print(f'torch.cuda.is_available(): {torch.cuda.is_available()}')
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model = inception_v3(pretrained=True).to(device=self.device)
+        print(f'is cuda available: {torch.cuda.is_available()}')
+        self.model = inception_v3(pretrained=True)
         for param in self.model.parameters():
             param.requires_grad = False 
 
@@ -41,8 +40,6 @@ class InceptionV3LightningModel(pl.LightningModule):
 
     def training_step(self, train_batch, batch_idx):
         X, y = train_batch
-        X = X.to(device=self.device)
-        y = y.to(device=self.device)
         y_hat = self.model(X)
         loss = self.loss_criterion(y_hat, y)
         self.log('train_loss', loss)
@@ -50,8 +47,6 @@ class InceptionV3LightningModel(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         X, y = batch
-        X = X.to(device=self.device)
-        y = y.to(device=self.device)
         y_hat = self.model(X)
         loss = self.loss_criterion(y_hat, y)
         self.log("valid_loss", loss, prog_bar=True)
