@@ -13,7 +13,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def get_cropped_data(relative_path = "../input/diabetic-retinopathy-resized/trainLabels_cropped.csv", count=5000):
     return pd.read_csv(relative_path)[:count]
 
-trainer = Trainer(accelerator="gpu", devices=8, num_nodes=4, strategy="ddp")
 # train.py
 def main(args):
     batch_size =  args.batch_size if(args and  args.batch_size) else 32
