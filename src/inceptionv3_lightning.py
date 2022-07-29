@@ -10,7 +10,6 @@ import pytorch_lightning as pl
 class InceptionV3LightningModel(pl.LightningModule):
     def __init__(
         self,
-        learning_rate = 1e-4,
         num_epochs = 1,
         in_features = 2048, 
         out_features=5,
@@ -24,16 +23,12 @@ class InceptionV3LightningModel(pl.LightningModule):
             param.requires_grad = False 
         # Be careful not to overwrite `pl.LightningModule` attributes such as `self.model`.
         self._model.fc = torch.nn.Linear(in_features=in_features, out_features=out_features, bias=bias)
-        self._learning_rate = learning_rate
         self._num_epochs = num_epochs
         self._in_features = in_features
         self._out_features = out_features
         self._bias = bias
         self._aux_logits = aux_logits
         self._loss_criterion = torch.nn.CrossEntropyLoss()
-
-    def backward(self, trainer, loss, optimizer, optimizer_idx):
-        loss.backward()
 
     def forward(self, x):
         return self._model(x)
@@ -43,7 +38,7 @@ class InceptionV3LightningModel(pl.LightningModule):
 
     def training_step(self, train_batch, batch_idx):
         X, y = train_batch
-        y_hat = self._model(X)
+        (y_hat, _) = self._model(X)
         loss = self._loss_criterion(y_hat, y)
         self.log('train_loss', loss)
         return loss
@@ -53,9 +48,9 @@ class InceptionV3LightningModel(pl.LightningModule):
         y_hat = self._model(X)
         loss = self._loss_criterion(y_hat, y)
         self.log("valid_loss", loss, prog_bar=True)
-        self.log("val_acc", self.accuracy(y_hat, y), prog_bar=True)
+        # self.log("val_acc", self._model.accuracy(y_hat, y), prog_bar=True)
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self._model.parameters(), lr = self._learning_rate)
+        return torch.optim.Adam(self._model.parameters(), lr = 1e-4)
 
     

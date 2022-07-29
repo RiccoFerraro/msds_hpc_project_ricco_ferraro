@@ -10,8 +10,6 @@ from retina_dataset import RetinaDataset
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-def get_cropped_data(relative_path = "../input/diabetic-retinopathy-resized/trainLabels_cropped.csv", count=5000):
-    return pd.read_csv(relative_path)[:count]
 
 # train.py
 def main(args):
@@ -29,10 +27,11 @@ def main(args):
     if(torch.cuda.is_available()):
         print('using gpu accelerator!')
         trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
+        trainer.fit(model, train_loader, val_loader)
     else: 
         print('using plain ole cpu and 1 node!')
         trainer = Trainer(num_nodes=1, strategy="ddp")
-    trainer.fit(model, train_loader, val_loader)
+        trainer.fit(model, train_loader, val_loader)
 
 
 if __name__ == "__main__":

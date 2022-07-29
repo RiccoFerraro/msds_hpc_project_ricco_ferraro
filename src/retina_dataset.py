@@ -26,7 +26,9 @@ class RetinaDataset(Dataset):
         img = Image.open(img_path)
         
         if(self.transform):
+            # serialize the transformed image!
             img = self.transform(img)
         
+        # serialize the tensor!
         return img, torch.tensor(self.df.iloc[index].level)
 
