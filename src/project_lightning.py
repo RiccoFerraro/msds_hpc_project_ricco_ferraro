@@ -21,8 +21,8 @@ def main(args):
     train_dataset = RetinaDataset(total=5000)
     train, val = random_split(train_dataset, [4500, 500])
     
-    train_loader = DataLoader(dataset=train, batch_size=batch_size, num_workers=-1)
-    val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=-1)
+    train_loader = DataLoader(dataset=train, batch_size=batch_size, num_workers=4)
+    val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=4)
 
     if(torch.cuda.is_available()):
         print('using gpu accelerator!')
