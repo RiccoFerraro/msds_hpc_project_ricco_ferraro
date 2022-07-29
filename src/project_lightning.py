@@ -26,7 +26,12 @@ def main(args):
     train_loader = DataLoader(dataset=train, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(dataset=val, batch_size=batch_size, shuffle=True)
 
-    trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
+    if(torch.cuda.is_available()):
+        print('using gpu accelerator!')
+        trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
+    else: 
+        print('using plain ole cpu!')
+        trainer = Trainer(devices=num_devices, num_nodes=num_nodes, strategy="ddp")
     trainer.fit(model, train_loader, val_loader)
 
 
