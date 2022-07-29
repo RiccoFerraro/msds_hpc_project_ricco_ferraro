@@ -1,5 +1,4 @@
 from  inceptionv3_lightning import *
-import os
 import ssl
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader, random_split

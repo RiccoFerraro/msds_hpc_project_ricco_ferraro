@@ -5,6 +5,7 @@ from PIL import Image
 from torchvision.models import inception_v3
 from tqdm import tqdm
 import torch
+import pytorch_lightning as pl
 
 class InceptionV3LightningModel(pl.LightningModule):
     def __init__(
