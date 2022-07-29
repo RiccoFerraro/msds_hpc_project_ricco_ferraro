@@ -14,8 +14,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 # train.py
 def main(args):
     batch_size =  args.batch_size if(args and  args.batch_size) else 32
-    num_devices = args.num_devices if(args and args.num_devices) else 8
-    num_nodes = args.num_nodes if(args and args.num_nodes) else 4
+    num_devices = args.num_devices if(args and args.num_devices) else 1
+    num_nodes = args.num_nodes if(args and args.num_nodes) else 2
 
     model = InceptionV3LightningModel(args)
     train_dataset = RetinaDataset(total=5000)
