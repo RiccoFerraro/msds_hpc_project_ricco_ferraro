@@ -2,7 +2,7 @@
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
-#SBATCH -p standard
+#SBATCH -p standard-mem-s --mem=32G
 #SBATCH --nodes=2
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=8
@@ -26,5 +26,5 @@ export PYTHONFAULTHANDLER=1
 # module load NCCL/2.4.7-1-cuda.10.0
 
 # run script from above
-# srun python3 src/project_lightning.py --num_nodes=2 --num_devices=1
-nvidia-smi
+srun python3 src/project_lightning.py --num_nodes=2 --num_devices=1
+# nvidia-smi
