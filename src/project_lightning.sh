@@ -2,7 +2,7 @@
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
-#SBATCH -p v100x8
+#SBATCH -p standard
 #SBATCH --nodes=2
 #SBATCH --gres=gpu:1
 #SBATCH --array=1-2
