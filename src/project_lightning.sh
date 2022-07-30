@@ -22,6 +22,7 @@ export PYTHONFAULTHANDLER=1
 
 # might need the latest CUDA
 # module load NCCL/2.4.7-1-cuda.10.0
+module load cuda
 
 # run script from above
 srun python3 src/project_lightning.py --num_nodes=2 --num_devices=1
