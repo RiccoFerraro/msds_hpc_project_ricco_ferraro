@@ -26,5 +26,5 @@ export PYTHONFAULTHANDLER=1
 module load cuda
 
 # run script from above
-srun --pty -p gpgpu-1 -n 1 -c 36 --mem=32G --gres=gpu:1 python3 src/project_lightning.py --num_nodes=2 --num_devices=1
+srun python src/project_lightning.py --num_nodes=2 --num_devices=1
 # nvidia-smi
