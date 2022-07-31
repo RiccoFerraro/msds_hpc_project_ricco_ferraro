@@ -25,7 +25,7 @@ def main(args):
     val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=4)
 
     if(torch.cuda.is_available()):
-        print('using gpu accelerator!')
+        print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}')
         trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
         trainer.fit(model, train_loader, val_loader)
     else: 
