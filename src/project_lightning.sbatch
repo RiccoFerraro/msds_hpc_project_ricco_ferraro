@@ -3,7 +3,7 @@
 # SLURM SUBMIT SCRIPT
 #SBATCH -p gpgpu-1 
 #SBATCH --gres=gpu:1 
-#SBATCH --mem=32G
+#SBATCH --mem=10G
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=8
 #SBATCH --time=0-02:00:00
