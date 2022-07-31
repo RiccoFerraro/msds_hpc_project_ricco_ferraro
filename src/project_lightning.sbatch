@@ -8,6 +8,7 @@
 #SBATCH --ntasks-per-node=8
 #SBATCH --time=0-02:00:00
 #SBATCH --output=%j.out
+#SBATCH --error=%j.err
 
 # activate venv
 source project_venv/bin/activate
