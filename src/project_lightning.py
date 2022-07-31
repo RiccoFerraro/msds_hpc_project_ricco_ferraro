@@ -13,9 +13,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # train.py
 def main(args):
-    batch_size =  args.batch_size if(args and  args.batch_size) else 32
-    num_devices = args.num_devices if(args and args.num_devices) else 1
-    num_nodes = args.num_nodes if(args and args.num_nodes) else 2
+    batch_size =  int(args.batch_size if(args and  args.batch_size) else 32)
+    num_devices = int(args.num_devices if(args and args.num_devices) else 1)
+    num_nodes = int(args.num_nodes if(args and args.num_nodes) else 2)
 
     model = InceptionV3LightningModel(args)
     train_dataset = RetinaDataset(total=5000)
@@ -26,7 +26,7 @@ def main(args):
 
     if(torch.cuda.is_available()):
         print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}')
-        trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=num_nodes, strategy="ddp")
+        trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=int(num_nodes), strategy="ddp")
         trainer.fit(model, train_loader, val_loader)
     else: 
         print('using plain ole cpu and 1 node!')
