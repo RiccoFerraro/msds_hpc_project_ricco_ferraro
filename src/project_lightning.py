@@ -24,14 +24,17 @@ def main(args):
     train_loader = DataLoader(dataset=train, batch_size=batch_size, num_workers=4)
     val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=4)
 
+    
     if(torch.cuda.is_available()):
         print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}')
         trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=int(num_nodes), strategy="ddp")
-        trainer.fit(model, train_loader, val_loader)
+        with trainer.profiler.profile("training_step"):
+            trainer.fit(model, train_loader, val_loader)
     else: 
         print('using plain ole cpu and 1 node!')
         trainer = Trainer(num_nodes=1, strategy="ddp")
-        trainer.fit(model, train_loader, val_loader)
+        with trainer.profiler.profile("training_step"):
+            trainer.fit(model, train_loader, val_loader)
 
 
 if __name__ == "__main__":
