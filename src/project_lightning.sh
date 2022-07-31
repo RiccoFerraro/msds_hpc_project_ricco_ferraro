@@ -1,4 +1,3 @@
-# (submit.sh)
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
