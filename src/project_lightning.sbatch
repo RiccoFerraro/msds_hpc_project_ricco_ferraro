@@ -26,5 +26,6 @@ export PYTHONFAULTHANDLER=1
 module load cuda
 
 # run script from above
-srun --output=/local/fs/myexec.out python src/project_lightning.py --num_nodes=2 --num_devices=1 
-sgather /local/fs/myexec.out myexec.out
+# srun --output=/local/fs/myexec.out python src/project_lightning.py --num_nodes=2 --num_devices=1 
+srun python src/project_lightning.py --num_nodes=2 --num_devices=1 
+# sgather /local/fs/myexec.out myexec.out
