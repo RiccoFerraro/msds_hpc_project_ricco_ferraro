@@ -30,12 +30,17 @@ def main(args):
     print(f'starting training at time {start_time}', file = sys.stdout, flush=True)
     if(torch.cuda.is_available()):
         print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}', file = sys.stdout, flush=True)
-        trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=int(num_nodes), strategy="ddp")
+        trainer = Trainer(accelerator="gpu",
+        devices=num_devices,
+        # num_nodes=int(num_nodes),
+        strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
     else: 
         print('using plain ole cpu and 1 node!', file = sys.stdout, flush=True)
-        trainer = Trainer(num_nodes=1, strategy="ddp")
+        trainer = Trainer(
+            # num_nodes=1, 
+            strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
     execution_time = time.time() - start_time
