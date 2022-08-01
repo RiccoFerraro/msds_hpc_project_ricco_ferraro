@@ -1,0 +1,101 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : p[026-033]
+srun: cpus-per-task       : 16
+srun: jobid               : 33575127
+srun: job-name            : project_lightning.sbatch
+srun: mem                 : 10G
+srun: nodes               : 8
+srun: ntasks              : 8
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 33575127: nodes(8):`p[026-033]', cpu counts: 36(x8)
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=33575127.0 on host p026, 1 tasks: 0
+srun: launching StepId=33575127.0 on host p027, 1 tasks: 1
+srun: launching StepId=33575127.0 on host p028, 1 tasks: 2
+srun: launching StepId=33575127.0 on host p029, 1 tasks: 3
+srun: launching StepId=33575127.0 on host p030, 1 tasks: 4
+srun: launching StepId=33575127.0 on host p031, 1 tasks: 5
+srun: launching StepId=33575127.0 on host p032, 1 tasks: 6
+srun: launching StepId=33575127.0 on host p033, 1 tasks: 7
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node p026, 1 tasks started
+srun: launch/slurm: _task_start: Node p028, 1 tasks started
+srun: launch/slurm: _task_start: Node p027, 1 tasks started
+srun: launch/slurm: _task_start: Node p029, 1 tasks started
+srun: launch/slurm: _task_start: Node p032, 1 tasks started
+srun: launch/slurm: _task_start: Node p033, 1 tasks started
+srun: launch/slurm: _task_start: Node p030, 1 tasks started
+srun: launch/slurm: _task_start: Node p031, 1 tasks started
+initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/8
+initializing distributed: GLOBAL_RANK: 4, MEMBER: 5/8
+initializing distributed: GLOBAL_RANK: 6, MEMBER: 7/8
+Multi-processing is handled by Slurm.
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/8
+initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/8
+initializing distributed: GLOBAL_RANK: 5, MEMBER: 6/8
+initializing distributed: GLOBAL_RANK: 7, MEMBER: 8/8
+initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/8
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 8 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+Set SLURM handle signals.
+
+  | Name            | Type             | Params
+-----------------------------------------------------
+0 | _model          | Inception3       | 25.1 M
+1 | _loss_criterion | CrossEntropyLoss | 0     
+-----------------------------------------------------
+10.2 K    Trainable params
+25.1 M    Non-trainable params
+25.1 M    Total params
+100.490   Total estimated model params size (MB)
+/users/rferraro/msds_hpc_project_ricco_ferraro/project_venv/lib/python3.6/site-packages/pytorch_lightning/trainer/data_loading.py:433: UserWarning: The number of training samples (18) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+  f"The number of training samples ({self.num_training_batches}) is smaller than the logging interval"
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p027: task 1: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p028: task 2: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p032: task 6: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p029: task 3: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p033: task 7: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p031: task 5: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p030: task 4: Completed
+srun: launch/slurm: _task_finish: Received task exit notification for 1 task of StepId=33575127.0 (status=0x0000).
+srun: launch/slurm: _task_finish: p026: task 0: Completed
