@@ -31,17 +31,16 @@ def main(args):
     if(torch.cuda.is_available()):
         print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}', file = sys.stdout, flush=True)
         trainer = Trainer(
-        # accelerator="gpu",
-        gpus=-1,
-        # devices=num_devices,
-        # num_nodes=int(num_nodes),
+        accelerator="gpu",
+        gpus=num_devices,
+        num_nodes=int(num_nodes),
         strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
     else: 
         print('using plain ole cpu and 1 node!', file = sys.stdout, flush=True)
         trainer = Trainer(
-            # num_nodes=1, 
+            # num_nodes=1, s
             strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
