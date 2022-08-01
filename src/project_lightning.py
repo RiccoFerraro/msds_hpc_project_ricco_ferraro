@@ -30,8 +30,10 @@ def main(args):
     print(f'starting training at time {start_time}', file = sys.stdout, flush=True)
     if(torch.cuda.is_available()):
         print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}', file = sys.stdout, flush=True)
-        trainer = Trainer(accelerator="gpu",
-        devices=num_devices,
+        trainer = Trainer(
+        # accelerator="gpu",
+        gpus=-1,
+        # devices=num_devices,
         # num_nodes=int(num_nodes),
         strategy="ddp")
         with trainer.profiler.profile("training_step"):

@@ -48,6 +48,7 @@ class InceptionV3LightningModel(pl.LightningModule):
         loss = self._loss_criterion(y_hat, y)
         self.log("valid_loss", loss, prog_bar=True)
         # self.log("val_acc", self._model.accuracy(y_hat, y), prog_bar=True)
+        return batch_idx
 
     def configure_optimizers(self):
         return torch.optim.Adam(self._model.parameters(), lr = 1e-4)
