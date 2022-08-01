@@ -17,7 +17,6 @@ class InceptionV3LightningModel(pl.LightningModule):
         aux_logits = False,
     ):
         super().__init__()
-        print(f'is cuda available: {torch.cuda.is_available()}')
         self._model = inception_v3(pretrained=True)
         for param in self._model.parameters():
             param.requires_grad = False 
