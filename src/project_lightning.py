@@ -39,7 +39,7 @@ def main(args):
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
     execution_time = time.time() - start_time
-    print("--- %s seconds ---" % (execution_time), flush=True)
+    print("--- %s seconds ---" % (execution_time), file = sys.stdout, flush=True)
     print(f'completed training at time', file = sys.stdout, flush=True)
     print("--- %s seconds ---" % (execution_time),  file = sys.stdout, flush=True)
 
