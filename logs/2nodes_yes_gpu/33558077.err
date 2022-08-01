@@ -1,0 +1,69 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : p[032-033]
+srun: cpus-per-task       : 16
+srun: jobid               : 33558077
+srun: job-name            : project_lightning.sbatch
+srun: mem                 : 10G
+srun: nodes               : 2
+srun: ntasks              : 2
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 33558077: nodes(2):`p[032-033]', cpu counts: 36(x2)
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=33558077.0 on host p032, 1 tasks: 0
+srun: launching StepId=33558077.0 on host p033, 1 tasks: 1
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node p032, 1 tasks started
+srun: launch/slurm: _task_start: Node p033, 1 tasks started
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+Set SLURM handle signals.
+Set SLURM handle signals.
+
+  | Name            | Type             | Params
+-----------------------------------------------------
+0 | _model          | Inception3       | 25.1 M
+1 | _loss_criterion | CrossEntropyLoss | 0     
+-----------------------------------------------------
+10.2 K    Trainable params
+25.1 M    Non-trainable params
+25.1 M    Total params
+100.490   Total estimated model params size (MB)
+
+  | Name            | Type             | Params
+-----------------------------------------------------
+0 | _model          | Inception3       | 25.1 M
+1 | _loss_criterion | CrossEntropyLoss | 0     
+-----------------------------------------------------
+10.2 K    Trainable params
+25.1 M    Non-trainable params
+25.1 M    Total params
+100.490   Total estimated model params size (MB)
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[W reducer.cpp:1303] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+srun: Complete StepId=33558077.0+0 received
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 33558077 ON p032 CANCELLED AT 2022-08-01T11:43:20 ***
+slurmstepd: error: *** STEP 33558077.0 ON p032 CANCELLED AT 2022-08-01T11:43:20 ***
+bypassing sigterm
