@@ -33,7 +33,7 @@ def main(args):
         trainer = Trainer(
         accelerator="gpu",
         gpus=num_devices,
-        num_nodes=int(num_nodes),
+        num_nodes=num_nodes,
         strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
