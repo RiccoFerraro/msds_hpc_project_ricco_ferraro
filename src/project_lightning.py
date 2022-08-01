@@ -4,6 +4,8 @@ import pandas as pd
 from torch.utils.data import Dataset, DataLoader, random_split
 from pytorch_lightning import Trainer
 from argparse import ArgumentParser
+import sys
+import time
 
 
 from retina_dataset import RetinaDataset
@@ -24,9 +26,10 @@ def main(args):
     train_loader = DataLoader(dataset=train, batch_size=batch_size, num_workers=4)
     val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=4)
 
-    
+    start_time = time.time()
+    print(f'starting training at time {start_time}', file = sys.stdout)
     if(torch.cuda.is_available()):
-        print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}')
+        print(f'using gpu accelerator! num_devices={num_devices}, num_nodes={num_nodes}', file = sys.stdout)
         trainer = Trainer(accelerator="gpu", devices=num_devices, num_nodes=int(num_nodes), strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
@@ -35,8 +38,11 @@ def main(args):
         trainer = Trainer(num_nodes=1, strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
-
-
+    execution_time = time.time() - start_time
+    print("--- %s seconds ---" % (execution_time))
+    print(f'completed training at time', file = sys.stdout)
+    print("--- %s seconds ---" % (execution_time),  file = sys.stdout)
+    
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--batch_size", default=None)
