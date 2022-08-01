@@ -27,7 +27,7 @@ module load cuda
 
 # run script from above
 
-srun -v python -u src/project_lightning.py --num_nodes=1 --num_devices=1
+srun -v python -u src/project_lightning.py --num_nodes=2 --num_devices=1
 
 # srun --output=/local/fs/myexec.out python src/project_lightning.py --num_nodes=2 --num_devices=1 
 # sgather /local/fs/myexec.out myexec.out
