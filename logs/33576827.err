@@ -1,0 +1,36 @@
+srun: defined options
+srun: -------------------- --------------------
+srun: (null)              : p020
+srun: cpus-per-task       : 16
+srun: jobid               : 33576827
+srun: job-name            : project_lightning.sbatch
+srun: mem                 : 10G
+srun: nodes               : 1
+srun: ntasks              : 1
+srun: ntasks-per-node     : 1
+srun: verbose             : 1
+srun: -------------------- --------------------
+srun: end of defined options
+srun: jobid 33576827: nodes(1):`p020', cpu counts: 36(x1)
+srun: launch/slurm: launch_p_step_launch: CpuBindType=(null type)
+srun: launching StepId=33576827.0 on host p020, 1 tasks: 0
+srun: route/default: init: route default plugin loaded
+srun: launch/slurm: _task_start: Node p020, 1 tasks started
+/users/rferraro/msds_hpc_project_ricco_ferraro/project_venv/lib/python3.6/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py:898: UserWarning: You are running on single node with no parallelization, so distributed has no effect.
+  rank_zero_warn("You are running on single node with no parallelization, so distributed has no effect.")
+GPU available: True, used: False
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+/users/rferraro/msds_hpc_project_ricco_ferraro/project_venv/lib/python3.6/site-packages/pytorch_lightning/trainer/trainer.py:1585: UserWarning: GPU available but not used. Set the gpus flag in your trainer `Trainer(gpus=1)` or script `--gpus=1`.
+  "GPU available but not used. Set the gpus flag in your trainer `Trainer(gpus=1)` or script `--gpus=1`."
+Set SLURM handle signals.
+
+  | Name            | Type             | Params
+-----------------------------------------------------
+0 | _model          | Inception3       | 25.1 M
+1 | _loss_criterion | CrossEntropyLoss | 0     
+-----------------------------------------------------
+10.2 K    Trainable params
+25.1 M    Non-trainable params
+25.1 M    Total params
+100.490   Total estimated model params size (MB)
