@@ -4,7 +4,7 @@
 #SBATCH -p gpgpu-1 
 #SBATCH --gres=gpu:1 
 #SBATCH --mem=10G
-#SBATCH --nodes=1
+#SBATCH --nodes=8
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --output=%j.out
@@ -27,7 +27,7 @@ module load cuda
 
 # run script from above
 
-srun -v python -u src/project_lightning.py --num_nodes=1 --num_devices=1
+srun -v python -u src/project_lightning.py --num_nodes=1 --num_devices=8
 
 # srun --output=/local/fs/myexec.out python src/project_lightning.py --num_nodes=2 --num_devices=1 
 # sgather /local/fs/myexec.out myexec.out

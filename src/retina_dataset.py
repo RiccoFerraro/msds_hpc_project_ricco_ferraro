@@ -24,11 +24,15 @@ class RetinaDataset(Dataset):
     def __getitem__(self, index):
         img_path = os.path.join(self.imagepath, self.df.iloc[index].image +".jpeg")
         img = Image.open(img_path)
-        
-        if(self.transform):
-            # serialize the transformed image!
-            img = self.transform(img)
+
+        # if(self.transform):
+        #     # serialize the transformed image!
+        #     img = self.transform(img)
         
         # serialize the tensor!
-        return img, torch.tensor(self.df.iloc[index].level)
+        # return img, torch.tensor(self.df.iloc[index].level)
+
+         # from tensor file!
+        tensor_path = os.path.join(self.imagepath, + "tensor/" + self.df.iloc[index].image +".pt")
+        return img, torch.load(tensor_path)
 
