@@ -5,6 +5,8 @@ import torch
 
 transform = transforms.Compose([transforms.Resize((299,299)),transforms.ToTensor()])
 file_df = pd.read_csv("data/trainLabels_cropped.csv")
+file_df = file_df.head(500)
+file_df.to_csv("data/trainLabels_cropped_small.csv")
 relative_path = 'data/archive/resized_train_cropped/resized_train_cropped/'
 
 file_df['full_path'] = relative_path + file_df['image'] + ".jpeg"

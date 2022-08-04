@@ -41,6 +41,7 @@ def main(args):
         print('using plain ole cpu and 1 node!', file = sys.stdout, flush=True)
         trainer = Trainer(
             # num_nodes=1, s
+            max_epochs=15,
             strategy="ddp")
         with trainer.profiler.profile("training_step"):
             trainer.fit(model, train_loader, val_loader)
