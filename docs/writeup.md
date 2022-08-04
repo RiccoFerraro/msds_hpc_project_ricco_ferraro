@@ -55,13 +55,13 @@ def train_model(train_dataloader):
         for data, target in tqdm(train_dataloader):
             data = data.to(device=device)
             target = target.to(device=device)
-    
+  
             score = model(data)
             optimizer.zero_grad()
-    
+  
             loss = loss_criterion(score, target)
             loss.backward()
-    
+  
             optimizer.step()
   
         print(f"for epoch {epoch}, loss : {loss}")
@@ -79,10 +79,10 @@ def check_accuracy(model, loader):
         for x, y in tqdm(loader):
             x = x.to(device=device)
             y = y.to(device=device)
-    
+  
             score = model(x)
             _,predictions = score.max(1)
-    
+  
             correct_output += (y==predictions).sum()
             total_output += predictions.shape[0]
     model.train()
@@ -239,7 +239,7 @@ MEAN: 7321.574318289757 seconds
 
 - Run 1: completed training at time --- 197146.97274017334 seconds ---
 - Run 2: completed training at time --- 199454.64568400383 seconds ---
-MEAN: 198300.80921208858 seconds
+  MEAN: 198300.80921208858 seconds
 
 #### Node With 1 GPU for each node (MUCH FASTER)
 
@@ -247,7 +247,7 @@ MEAN: 198300.80921208858 seconds
 - Run 2: completed training at time --- 21281.795115232468 seconds ---
 - Run 3: completed training at time --- 21172.826137065887 seconds ---
 - Run 4: completed training at time --- 21067.387937784195 seconds ---
-MEAN: 21134.70265084505 seconds
+  MEAN: 21134.70265084505 seconds
 
 ### Experiment 3:
 
@@ -255,19 +255,20 @@ MEAN: 21134.70265084505 seconds
 
 - Run 1: completed training at time --- 1153.6431467533112 seconds ---
 - Run 2: completed training at time --- 1053.66729369484 seconds ---
-MEAN: 1103.6552202240755 seconds
+  MEAN: 1103.6552202240755 seconds
+
 #### Run WITH Pre-Serialization
 
 - Run 1: completed training at time --- 1271.0400450229645 seconds ---
 - Run 2: completed training at time --- 1296.9230398457849 seconds ---
-MEAN: 1283.9815424343747 seconds
+  MEAN: 1283.9815424343747 seconds
 
 ![Runtime Vs Nodes](RuntimeVsNodes.png)
 
-For experiment 1 and 2: We can see that the drop in runtime is much more pronounced when comparing Using a GPU vs NOT using a GPU and increasing the number of nodes from 1 to 2, than it was using gpus but increasing from 2 to 8 nodes. This likely means that adding a GPU has a strong, impact, where adding more nodes has a lesser impact on training run time. 
+For experiment 1 and 2: We can see that the drop in runtime is much more pronounced when comparing Using a GPU vs NOT using a GPU and increasing the number of nodes from 1 to 2, than it was using gpus but increasing from 2 to 8 nodes. This likely means that adding a GPU has a strong, impact, where adding more nodes has a lesser impact on training run time.
 
 ![Runtime Vs Nodes](LocalVsSerialization.png)
-For experiment 3, we can see that there is a small performance increase to be had from pre-serializing image tensors. This affect is less than increasing nodes or using a GPU.  
+For experiment 3, we can see that there is a small performance increase to be had from pre-serializing image tensors. This affect is less than increasing nodes or using a GPU.
 
 ## Steps to Reproduce Each Experiment:
 
@@ -278,31 +279,27 @@ Repro Experiments 1 and 2
 3. create a virtual python environment and activate it with `python3 -m venv /path/to/new/virtual/environment && source /path/to/new/virtual/environment/bin/activate`
 4. run `pip install -r Requirements.txt`
 5. run sbatch file with different configurations above by running `sbatch /src/project_lightning.sbatch`
-6. use a SFTP client to download the .err and .out files that are generated from these runs. Note the time at the bottom of the .out files and the run configuration in the .err file. 
+6. use a SFTP client to download the .err and .out files that are generated from these runs. Note the time at the bottom of the .out files and the run configuration in the .err file.
 
-   
    Repro Experiment 3
-1. Download the dataset locally
-2. cloining this project repo
-3. create a virtual python environment and activate it with `python3 -m venv /path/to/new/virtual/environment && source /path/to/new/virtual/environment/bin/activate`
-4. run `pip install -r Requirements.txt`
-5.  Run the `python serialize_tensor.py` module to serialize the tensors
-6.  modify the `retina_dataset.py ` to use the first 400 or so records in the `trainLabels_cropped.csv`. 
-7.  Run `python project_lightning.py --num_nodes=1 --num_devices=0` to record a run WITH preserialization. 
-8.  Note the time to train in the terminal log
-9.  modify the  `retina_dataset.py ` file's `__getitem__` function to load from the NON-transformed tensors. 
-10. 7.  Run `python project_lightning.py --num_nodes=1 --num_devices=0` to record a run without preserialization
-8.  Note the time to train in the terminal log
+7. Download the dataset locally
+8. cloining this project repo
+9. create a virtual python environment and activate it with `python3 -m venv /path/to/new/virtual/environment && source /path/to/new/virtual/environment/bin/activate`
+10. run `pip install -r Requirements.txt`
+11. Run the `python serialize_tensor.py` module to serialize the tensors
+12. modify the `retina_dataset.py ` to use the first 400 or so records in the `trainLabels_cropped.csv`.
+13. Run `python project_lightning.py --num_nodes=1 --num_devices=0` to record a run WITH preserialization.
+14. Note the time to train in the terminal log
+15. modify the  `retina_dataset.py ` file's `__getitem__` function to load from the NON-transformed tensors.
+16. 7. Run `python project_lightning.py --num_nodes=1 --num_devices=0` to record a run without preserialization
+17. Note the time to train in the terminal log
 
 ## Takeaways
 
-Relatively easy to port pytorch models to pytorch lightning. For computer vision problems like inceptionv3 and diabetic retinopathy detection, GPU usage is most important, followed by node parallelization, and lastly followed by pre-serialization of input data.  
+Relatively easy to port pytorch models to pytorch lightning. For computer vision problems like inceptionv3 and diabetic retinopathy detection, GPU usage is most important, followed by node parallelization, and lastly followed by pre-serialization of input data.
 
 ## Difficulties
 
-printing synchronously and gathering logs in multinode environment. You need to use `file = sys.stdout, flush=True` in a print statement. 
+printing synchronously and gathering logs in multinode environment. You need to use `file = sys.stdout, flush=True` in a print statement.
 
-pytorch lightning trainer spinning up 8 different training runs instead of using 8 nodes. This was fixed by setting the `ntasks-per-node=1` in the sbatch file which sets an environment variable for SLURM_NTASKS. This wasn't well documented. 
-
-
-
+pytorch lightning trainer spinning up 8 different training runs instead of using 8 nodes. This was fixed by setting the `ntasks-per-node=1` in the sbatch file which sets an environment variable for SLURM_NTASKS. This wasn't well documented.
