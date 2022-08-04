@@ -140,6 +140,43 @@ class InceptionV3LightningModel(pl.LightningModule):
 
 ```
 
+And Lastly the DataLoader is the same for bothy pytorch and pytorch lightning
+
+```
+class RetinaDataset(Dataset):
+    def __init__(self, imagepath="data/archive/resized_train_cropped/resized_train_cropped/", total=None):
+        transform = transforms.Compose([transforms.Resize((299,299)),transforms.ToTensor()])
+        print(os.getcwd())
+        # self.df = pd.read_csv("data/trainLabels_cropped.csv")
+        self.df = pd.read_csv("data/trainLabels_cropped_small.csv")
+        if (total is not None):
+            self.df = self.df[:total]
+        
+        self.transform = transform
+        
+        self.imagepath = imagepath
+        
+    def __len__(self):
+        return len(self.df)
+    
+    def __getitem__(self, index):
+        img_path = os.path.join(self.imagepath, self.df.iloc[index].image +".jpeg")
+        img = Image.open(img_path)
+
+        if(self.transform):
+            # serialize the transformed image!
+            img = self.transform(img)
+        
+        # serialize the tensor!
+        return img, torch.tensor(self.df.iloc[index].level)
+
+         # from tensor file!
+        # tensor_path = os.path.join(self.imagepath, "tensor/" + self.df.iloc[index].image +".pt")
+        # img = torch.load(tensor_path)
+
+        # return img, torch.tensor(self.df.iloc[index].level)
+```
+
 ## Optimzation Targets
 
 Optimization targets evaluated in this study included:
