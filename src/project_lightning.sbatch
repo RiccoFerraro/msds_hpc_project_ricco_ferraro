@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 # SLURM SUBMIT SCRIPT
-#SBATCH -p gpgpu-1 
+#SBATCH -p v100x8
 #SBATCH --gres=gpu:1 
 #SBATCH --mem=10G
 #SBATCH --nodes=8

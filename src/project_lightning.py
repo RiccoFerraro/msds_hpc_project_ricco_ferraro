@@ -20,8 +20,8 @@ def main(args):
     num_nodes = int(args.num_nodes if(args and args.num_nodes) else 2)
 
     model = InceptionV3LightningModel(args)
-    train_dataset = RetinaDataset(total=500)
-    train, val = random_split(train_dataset, [450, 50])
+    train_dataset = RetinaDataset(total=200)
+    train, val = random_split(train_dataset, [180, 20])
     
     train_loader = DataLoader(dataset=train, batch_size=batch_size, num_workers=4)
     val_loader = DataLoader(dataset=val, batch_size=batch_size, num_workers=4)
