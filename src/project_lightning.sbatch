@@ -4,7 +4,7 @@
 #SBATCH -p v100x8
 #SBATCH --gres=gpu:1 
 #SBATCH --mem=10G
-#SBATCH --nodes=8
+#SBATCH --nodes=4
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --output=%j.out
