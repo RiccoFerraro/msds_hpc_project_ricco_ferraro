@@ -15,4 +15,11 @@ This dataset contains a large collection of over 45,000 retinal images with bina
 
 The model used in this study was inspired and largely a port of a pytorch implementation submitted to kaggle here: https://www.kaggle.com/code/fanbyprinciple/pytorch-diabetic-retinopathy  The goal was to port and or wrap this solution to pytorch lightning.
 
-The solution uses google's inception v3 transfer deep Convolutional Neural Network model as implemented in a pytorch neural network model. Training this model locally takes about 24 hours to train on 5000 images as a baseline.
+The solution uses google's inception v3 transfer deep Convolutional Neural Network model as implemented in a pytorch neural network model. Training this model locally takes about 24 hours to train on 5000 images as a baseline. 
+
+## Optimzation Targets
+
+Node: configuration for sbatch, epochs, dataset size, batch size, etc.
+
+
+node for file serialization
